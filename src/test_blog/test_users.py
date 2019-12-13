@@ -81,6 +81,22 @@ class UsersTest(unittest.TestCase):
         self.assertTrue(json_data.get('jwt_token'))
         self.assertEqual(res.status_code, 200)
 
+    def test_user_login_with_invalid_password(self):
+        """ User Login Tests with invalid credentials """
+        user1 = {
+            'password': 'ds997',
+            'email': 'ds997@njit.edu',
+        }
+        res = self.client().post('/api/v1/users/', headers={'Content-Type': 'application/json'},
+                                 data=json.dumps(self.user))
+        self.assertEqual(res.status_code, 201)
+        res = self.client().post('/api/v1/users/login', headers={'Content-Type': 'application/json'},
+                                 data=json.dumps(user1))
+        json_data = json.loads(res.data)
+        self.assertFalse(json_data.get('jwt_token'))
+        self.assertEqual(json_data.get('error'), 'invalid credentials')
+        self.assertEqual(res.status_code, 400)
+
 
 if __name__ == '__main__':
     unittest.main()
