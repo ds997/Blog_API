@@ -1,0 +1,33 @@
+import unittest
+import json
+
+from ..app import create_app, db
+
+
+class UsersTest(unittest.TestCase):
+
+    def setUp(self):
+        self.app = create_app("testing")
+        self.client = self.app.test_client
+        self.user = {
+            'name': 'ds997',
+            'email': 'ds997@njit.edu',
+            'password': 'passw0rd!'
+        }
+
+        with self.app.app_context():
+            # create all tables
+            db.create_all()
+
+    """ test for user creation with valid credentials """
+    def test_user_creation(self):
+
+        res = self.client().post('/api/v1/users/', headers={'Content-Type': 'application/json'},
+                                 data=json.dumps(self.user))
+        json_data = json.loads(res.data)
+        self.assertTrue(json_data.get('jwt_token'))
+        self.assertEqual(res.status_code, 201)
+
+
+if __name__ == '__main__':
+    unittest.main()
