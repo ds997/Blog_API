@@ -20,6 +20,18 @@ def get_a_user(user_id):
     return custom_response(ser_user, 200)
 
 
+@user_api.route('/me', methods=['PUT'])
+@Auth.auth_required
+def update():
+    """
+  Update me
+  """
+    req_data = request.get_json()
+    data, error = user_schema.load(req_data, partial=True)
+    if error:
+        return custom_response(error, 400)
+
+
 @user_api.route('/', methods=['POST'])
 def create():
     """
