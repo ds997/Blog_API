@@ -23,6 +23,17 @@ def create():
     return custom_response(data, 201)
 
 
+# add this function
+@blogpost_api.route('/', methods=['GET'])
+def get_all():
+  """
+  Get All Blogposts
+  """
+  posts = BlogPostModel.get_all_blogposts()
+  data = blogpost_schema.dump(posts, many=True).data
+  return custom_response(data, 200)
+
+
 def custom_response(res, status_code):
     """
   Custom Response Function
