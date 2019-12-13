@@ -51,8 +51,8 @@ class UsersTest(unittest.TestCase):
         self.assertTrue(json_data.get('password'))
 
     " test user creation with no email "
-    def test_user_creation_with_no_email(self):
 
+    def test_user_creation_with_no_email(self):
         user1 = {
             'name': 'ds997',
             'password': 'ds997@njit.edu',
@@ -61,6 +61,14 @@ class UsersTest(unittest.TestCase):
         json_data = json.loads(res.data)
         self.assertEqual(res.status_code, 400)
         self.assertTrue(json_data.get('email'))
+
+    "test user creation with empty request"
+
+    def test_user_creation_with_empty_request(self):
+        user1 = {}
+        res = self.client().post('/api/v1/users/', headers={'Content-Type': 'application/json'}, data=json.dumps(user1))
+        json_data = json.loads(res.data)
+        self.assertEqual(res.status_code, 400)
 
 
 if __name__ == '__main__':
