@@ -1,9 +1,10 @@
+from marshmallow import fields, Schema
+
 from . import db
 import datetime
 
 
 class BlogPostModel(db.Model):
-
     __tablename__ = 'blogposts'
 
     id = db.Column(db.Integer, primary_key=True)
@@ -11,10 +12,15 @@ class BlogPostModel(db.Model):
     contents = db.Column(db.Text, nullable=False)
     created_at = db.Column(db.DateTime)
     modified_at = db.Column(db.DateTime)
+    contents = db.Column(db.Text, nullable=False)
+    owner_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
 
     def __init__(self, data):
         self.title = data.get('title')
         self.contents = data.get('contents')
+        self.created_at = datetime.datetime.utcnow()
+        self.modified_at = datetime.datetime.utcnow()
+        self.owner_id = data.get('owner_id')
         self.created_at = datetime.datetime.utcnow()
         self.modified_at = datetime.datetime.utcnow()
 
@@ -42,3 +48,13 @@ class BlogPostModel(db.Model):
 
     def __repr__(self):
         return '<id {}>'.format(self.id)
+
+    "Blog Post schema "
+
+    class BlogPostSchema(Schema):
+        id = fields.Int(dump_only=True)
+        title = fields.Str(required=True)
+        contents = fields.Str(required=True)
+        owner_id = fields.Int(required=True)
+        created_at = fields.DateTime(dump_only=True)
+        modified_at = fields.DateTime(dump_only=True)
