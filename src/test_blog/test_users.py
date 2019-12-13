@@ -101,7 +101,7 @@ class UsersTest(unittest.TestCase):
         """ User Login Tests with invalid credentials """
         user1 = {
             'password': 'passw0rd!',
-            'email': 'olawale1111@mail.com',
+            'email': 'ds997@njit.edu',
         }
         res = self.client().post('/api/v1/users/', headers={'Content-Type': 'application/json'},
                                  data=json.dumps(self.user))
@@ -113,6 +113,18 @@ class UsersTest(unittest.TestCase):
         self.assertEqual(json_data.get('error'), 'invalid credentials')
         self.assertEqual(res.status_code, 400)
 
+    def test_user_get_me(self):
+        """ Test User Get Me """
+        res = self.client().post('/api/v1/users/', headers={'Content-Type': 'application/json'},
+                                 data=json.dumps(self.user))
+        self.assertEqual(res.status_code, 201)
+        api_token = json.loads(res.data).get('jwt_token')
+        res = self.client().get('/api/v1/users/me',
+                                headers={'Content-Type': 'application/json', 'api-token': api_token})
+        json_data = json.loads(res.data)
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(json_data.get('email'), 'ds997@njit.edu')
+        self.assertEqual(json_data.get('name'), 'ds997')
 
 if __name__ == '__main__':
     unittest.main()
