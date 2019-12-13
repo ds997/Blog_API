@@ -38,6 +38,18 @@ class UsersTest(unittest.TestCase):
         self.assertEqual(res.status_code, 400)
         self.assertTrue(json_data.get('error'))
 
+    " test user creation with no password"
+    def test_user_creation_with_no_password(self):
+
+        user1 = {
+            'name': 'ds997',
+            'email': 'ds997@njit.edu',
+        }
+        res = self.client().post('/api/v1/users/', headers={'Content-Type': 'application/json'}, data=json.dumps(user1))
+        json_data = json.loads(res.data)
+        self.assertEqual(res.status_code, 400)
+        self.assertTrue(json_data.get('password'))
+
 
 if __name__ == '__main__':
     unittest.main()
