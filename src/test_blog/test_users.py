@@ -142,6 +142,16 @@ class UsersTest(unittest.TestCase):
         self.assertEqual(res.status_code, 200)
         self.assertEqual(json_data.get('name'), 'new name')
 
+    def test_delete_user(self):
+        """ Test User Delete """
+        res = self.client().post('/api/v1/users/', headers={'Content-Type': 'application/json'},
+                                 data=json.dumps(self.user))
+        self.assertEqual(res.status_code, 201)
+        api_token = json.loads(res.data).get('jwt_token')
+        res = self.client().delete('/api/v1/users/me',
+                                   headers={'Content-Type': 'application/json', 'api-token': api_token})
+        self.assertEqual(res.status_code, 204)
+
 
 if __name__ == '__main__':
     unittest.main()
