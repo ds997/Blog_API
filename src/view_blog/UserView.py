@@ -20,6 +20,17 @@ def get_a_user(user_id):
     return custom_response(ser_user, 200)
 
 
+@user_api.route('/me', methods=['DELETE'])
+@Auth.auth_required
+def delete():
+    """
+  Delete a user
+  """
+    user = UserModel.get_one_user(g.user.get('id'))
+    user.delete()
+    return custom_response({'message': 'deleted'}, 204)
+
+
 @user_api.route('/me', methods=['PUT'])
 @Auth.auth_required
 def update():
