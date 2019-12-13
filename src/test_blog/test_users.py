@@ -19,14 +19,24 @@ class UsersTest(unittest.TestCase):
             # create all tables
             db.create_all()
 
-    """ test for user creation with valid credentials """
-    def test_user_creation(self):
+    " test for user creation with valid credentials "
 
+    def test_user_creation(self):
         res = self.client().post('/api/v1/users/', headers={'Content-Type': 'application/json'},
                                  data=json.dumps(self.user))
         json_data = json.loads(res.data)
         self.assertTrue(json_data.get('jwt_token'))
         self.assertEqual(res.status_code, 201)
+
+    " test user creation with already existing email"
+
+    def test_user_creation_with_existing_email(self):
+        res = self.client().post('/api/v1/users/', headers={'Content-Type': 'application/json'},
+                                 data=json.dumps(self.user))
+        self.assertEqual(res.status_code, 201)
+        json_data = json.loads(res.data)
+        self.assertEqual(res.status_code, 400)
+        self.assertTrue(json_data.get('error'))
 
 
 if __name__ == '__main__':
