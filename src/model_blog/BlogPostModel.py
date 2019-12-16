@@ -1,4 +1,4 @@
-from marshmallow import fields, Schema
+from marshmallow import Schema, fields
 
 from . import db
 import datetime
@@ -51,10 +51,11 @@ class BlogPostModel(db.Model):
 
     "Blog Post schema "
 
-    class BlogPostSchema(Schema):
-        id = fields.Int(dump_only=True)
-        title = fields.Str(required=True)
-        contents = fields.Str(required=True)
-        owner_id = fields.Int(required=True)
-        created_at = fields.DateTime(dump_only=True)
-        modified_at = fields.DateTime(dump_only=True)
+
+class BlogPostSchema(Schema):
+    id = fields.Int(dump_only=True)
+    title = fields.Str(required=True)
+    contents = fields.Str(required=True)
+    owner_id = fields.Int(required=True)
+    created_at = fields.DateTime(dump_only=True)
+    modified_at = fields.DateTime(dump_only=True)

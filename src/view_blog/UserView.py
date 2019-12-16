@@ -1,6 +1,8 @@
 from flask import request, json, Response, Blueprint
 from ..model_blog.UserModel import UserModel, UserSchema
-from ..shared_blog.Authentication import Auth
+from ..shared_blog.auth import Auth
+from flask import g
+
 
 user_api = Blueprint('users', __name__)
 user_schema = UserSchema()
@@ -60,10 +62,10 @@ def create():
     Create User Function
     """
     req_data = request.get_json()
-    data, error = user_schema.load(req_data)
+    data = user_schema.load(req_data)
 
-    if error:
-        return custom_response(error, 400)
+    # if error:
+    #     return custom_response(error, 400)
 
     # check if user already exist in the db
     user_in_db = UserModel.get_user_by_email(data.get('email'))
