@@ -6,18 +6,16 @@ verify_ssl = true
 [dev-packages]
 
 [packages]
-psycopg2 = "==2.7.6.1"
-Flask = "==1.1.1"
-Flask-SQLAlchemy = "==2.4.1"
+flask = "*"
+flask-sqlalchemy = "*"
 psycopg2-binary = "*"
 flask-migrate = "*"
 flask-script = "*"
 marshmallow = "*"
+bcrypt = "*"
 flask-bcrypt = "*"
 pyjwt = "*"
-pytest-cov = "*"
-pytest = "*"
-gunicorn = "*"
+
 
 [requires]
 python_version = "3.6"

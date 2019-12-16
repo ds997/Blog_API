@@ -4,9 +4,9 @@ from .config import app_config
 from .model_blog import db, bcrypt
 from .view_blog.UserView import user_api as user_blueprint
 
-def create_app(env_name):
 
-    # app initiliazation
+def create_app(env_name):
+    # app init
 
     app = Flask(__name__)
 
@@ -26,3 +26,4 @@ def create_app(env_name):
         return 'Congratulations! Your first endpoint is working'
 
     return app
+

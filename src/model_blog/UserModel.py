@@ -1,4 +1,6 @@
+import value
 from marshmallow import fields, Schema
+
 from .BlogPostModel import BlogPostSchema
 import datetime
 from . import db
@@ -64,17 +66,21 @@ class UserModel(db.Model):
     def get_one_user(id):
         return UserModel.query.get(id)
 
+    @staticmethod
+    def get_user_by_email(value):
+        return UserModel.query.filter_by(email=value).first()
+
     def __repr(self):
         return '<id {}>'.format(self.id)
 
     "User Schema"
 
-    class UserSchema(Schema):
 
-        id = fields.Int(dump_only=True)
-        name = fields.Str(required=True)
-        email = fields.Email(required=True)
-        password = fields.Str(required=True)
-        created_at = fields.DateTime(dump_only=True)
-        modified_at = fields.DateTime(dump_only=True)
-        blogposts = fields.Nested(BlogPostSchema, many=True)
+class UserSchema(Schema):
+    id = fields.Int(dump_only=True)
+    name = fields.Str(required=True)
+    email = fields.Email(required=True)
+    password = fields.Str(required=True)
+    created_at = fields.DateTime(dump_only=True)
+    modified_at = fields.DateTime(dump_only=True)
+    blogposts = fields.Nested(BlogPostSchema, many=True)
