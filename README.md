@@ -46,3 +46,7 @@ and deploying it on Heroku.
 3. Get all user by id endpoint 
 
 ![Get all user by id endpoint ](https://github.com/ds997/Blog_API/blob/master/app_screenshots/get_user_by_id.png)
+
+# Test case Report
+
+![Test case Report](https://github.com/ds997/Blog_API/blob/master/app_screenshots/test%20cases%20report.png)
