@@ -32,3 +32,17 @@ and deploying it on Heroku.
 **Successfully created tables**
 
 ![User and Blogpost and relationship tables created](https://github.com/ds997/Blog_API/blob/master/app_screenshots/Database%20tables%20created%20.png)
+
+**POSTMAN endpoints screenshots for user**
+
+1. Create user endpoint 
+
+![Create user endpoint](https://github.com/ds997/Blog_API/blob/master/app_screenshots/create_user.png)
+
+2. Get all user endpoint
+
+![Get all user enpoint](https://github.com/ds997/Blog_API/blob/master/app_screenshots/get_all_users.png)
+
+3. Get all user by id endpoint 
+
+![Get all user by id endpoint ](https://github.com/ds997/Blog_API/blob/master/app_screenshots/get_user_by_id.png)
