@@ -15,7 +15,12 @@ marshmallow = "*"
 bcrypt = "*"
 flask-bcrypt = "*"
 pyjwt = "*"
-
+pytest = "*"
+coverage = "*"
+pytest-cov = "*"
+python-coveralls = "*"
+gunicorn = "*"
+python-dotenv = "*"
 
 [requires]
 python_version = "3.6"
