@@ -1,8 +1,7 @@
-from flask import request, json, Response, Blueprint
+from flask import request, json, Response, Blueprint, g, jsonify
+
 from ..model_blog.UserModel import UserModel, UserSchema
 from ..shared_blog.auth import Auth
-from flask import g
-
 
 user_api = Blueprint('users', __name__)
 user_schema = UserSchema()
@@ -18,7 +17,7 @@ def get_a_user(user_id):
     if not user:
         return custom_response({'error': 'user not found'}, 404)
 
-    ser_user = user_schema.dump(user).data
+    ser_user = user_schema.dump(user)
     return custom_response(ser_user, 200)
 
 
@@ -40,7 +39,7 @@ def get_me():
   Get me
   """
     user = UserModel.get_one_user(g.user.get('id'))
-    ser_user = user_schema.dump(user).data
+    ser_user = user_schema.dump(user)
     return custom_response(ser_user, 200)
 
 
@@ -76,9 +75,9 @@ def create():
     user = UserModel(data)
     user.save()
 
-    ser_data = user_schema.dump(user).data
+    ser_data = user_schema.dump(user).get('id')
 
-    token = Auth.generate_token(ser_data.get('id'))
+    token = Auth.generate_token(ser_data)
 
     return custom_response({'jwt_token': token}, 201)
 
@@ -87,7 +86,7 @@ def create():
 @Auth.auth_required
 def get_all():
     users = UserModel.get_all_users()
-    ser_users = user_schema.dump(users, many=True).data
+    ser_users = user_schema.dump(users, many=True)
     return custom_response(ser_users, 200)
 
 
@@ -111,9 +110,9 @@ def login():
     if not user.check_hash(data.get('password')):
         return custom_response({'error': 'invalid credentials'}, 400)
 
-    ser_data = user_schema.dump(user).data
+    ser_data = user_schema.dump(user).get('id')
 
-    token = Auth.generate_token(ser_data.get('id'))
+    token = Auth.generate_token(ser_data)
 
     return custom_response({'jwt_token': token}, 200)
 

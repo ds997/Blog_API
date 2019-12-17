@@ -11,11 +11,13 @@ class Auth:
   Auth Class
   """
 
+
     @staticmethod
     def generate_token(user_id):
         """
     Generate Token Method
     """
+        JWT_SECRET_KEY = 'hhgaghhgsdhdhdd'
         try:
             payload = {
                 'exp': datetime.datetime.utcnow() + datetime.timedelta(days=1),
@@ -24,7 +26,7 @@ class Auth:
             }
             return jwt.encode(
                 payload,
-                os.getenv('JWT_SECRET_KEY'),
+                JWT_SECRET_KEY,
                 'HS256'
             ).decode("utf-8")
         except Exception as e:
@@ -39,9 +41,10 @@ class Auth:
         """
     Decode token method
     """
+        JWT_SECRET_KEY = 'hhgaghhgsdhdhdd'
         re = {'data': {}, 'error': {}}
         try:
-            payload = jwt.decode(token, os.getenv('JWT_SECRET_KEY'))
+            payload = jwt.decode(token, JWT_SECRET_KEY)
             re['data'] = {'user_id': payload['sub']}
             return re
         except jwt.ExpiredSignatureError as e1:
