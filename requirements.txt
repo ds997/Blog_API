@@ -1,6 +1,7 @@
 bcrypt
 marshmallow
-marshmallow
-flask==1.1.1
-flask-sqlalchemy==2.4.1
-psycopg2==2.7.6.1
+# marshmallow
+#flask==1.1.1
+# flask-sqlalchemy==2.4.1
+# psycopg2==2.7.6.1
+# flask-bycrypt==0.7.0
