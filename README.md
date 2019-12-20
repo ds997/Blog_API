@@ -3,6 +3,10 @@
 ## Contributor
 Divyanshu Sachdeva (ds997)
 
+**Working screenshot of App deployed on Heroku**
+
+![App deployed on Heroku](https://github.com/ds997/Blog_API/blob/master/app_screenshots/heroku%20deployed.png)
+
 ## About
 The project is a step by step tutorial for building RESTful Blog APIs using python and flask and divided into 4 branches
 and deploying it on Heroku.
